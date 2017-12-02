@@ -75,7 +75,7 @@ bool move_up(){
 }
 
 bool move_down(){
-    // return false if hold nothing
+    // return false if nothing was picked
     if(ARROW.disk_size == 0)
         return false;
     // find the top disk of current column
@@ -83,10 +83,10 @@ bool move_down(){
     for(i = 1; i <= N_DISK; ++i)
         if(DISKS[i][ARROW.column] != 0)
             break;
-    // return false if there exist some disks and the top disk is larger than the disk holded
+    // return false if there exist some disks and the top disk is smaller than the disk picked
     if(DISKS[i][ARROW.column] != 0 && DISKS[i][ARROW.column] < ARROW.disk_size)
         return false;
-    // put the disk
+    // put the disk picked
     DISKS[i-1][ARROW.column] = ARROW.disk_size;
     ARROW.disk_size = 0;
     return true;
