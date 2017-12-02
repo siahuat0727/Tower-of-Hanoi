@@ -128,7 +128,7 @@ bool move(char dir){
 void moves(char* dirs){
     int len = strlen(dirs);
     for(int i = 0; i < len; ++i)
-	if(move(dirs[i]) == false){ // return if sth wrong
+	if(move(dirs[i]) == false){ // return if can't move
             printf("(at %d st/nd/rd/th input)\n", i+1);
 	    return;
         }
