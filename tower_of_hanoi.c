@@ -139,35 +139,37 @@ char* move_to(int dest){
     return prev == dest ? "" : prev+1 == dest ? "d" : prev+2 == dest ? "dd" : prev-1 == dest ? "a" : "aa";
 }
 
-void ai_move(char dir){
+void auto_move(char dir){
     printf("Press enter to continue:");
     while(getchar() != '\n'); // consume all input until get '\n'
     move(dir);
     show();
 }
 
-void ai_moves(char* dirs){
+void auto_moves(char* dirs){
     int len = strlen(dirs);
     for(int i = 0; i < len; ++i)
-	ai_move(dirs[i]);
+	auto_move(dirs[i]);
 }
 
+// move a disk from src to dest
 void move_disk(int src, int dest){
-    ai_moves(move_to(src));
-    ai_move(UP);
-    ai_moves(move_to(dest));
-    ai_move(DOWN);
+    auto_moves(move_to(src));
+    auto_move(UP);
+    auto_moves(move_to(dest));
+    auto_move(DOWN);
 }
 
-void ai(int src, int dest, int n_disk){
+// move n_disk disks from src to dest
+void auto_mode(int src, int dest, int n_disk){
     if(n_disk == 1){
 	move_disk(src, dest);
 	return;
     }
     int another_column = 3 - src - dest;
-    ai(src, another_column, n_disk-1);
+    auto_mode(src, another_column, n_disk-1);
     move_disk(src, dest);
-    ai(another_column, dest, n_disk-1);
+    auto_mode(another_column, dest, n_disk-1);
 }
 
 bool gameover(){
@@ -216,7 +218,7 @@ int main(){
         }
         puts("You WIN !!!");
     }else
-        ai(0, 2, N_DISK);
+        auto_mode(0, 2, N_DISK);
 
     puts("Press enter to exit...");
     while(getchar() != '\n');
