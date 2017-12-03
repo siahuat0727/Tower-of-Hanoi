@@ -14,17 +14,17 @@ struct{
     int disk_size;
 }ARROW;
 
-void print_chars(char c, int num){
+void putchars(char c, int num){
     for(int i = 0; i < num; ++i)
 	putchar(c);
 }
 
 void show_disk(int disk_size, char mid){
-    print_chars(' ', N_DISK - disk_size + 1);
-    print_chars('_', disk_size);
-    printf("%c", disk_size > 0 ? disk_size + '0' : mid);
-    print_chars('_', disk_size);
-    print_chars(' ', N_DISK - disk_size + 1);
+    putchars(' ', N_DISK - disk_size + 1);
+    putchars('_', disk_size);
+    putchar(disk_size > 0 ? disk_size + '0' : mid);
+    putchars('_', disk_size);
+    putchars(' ', N_DISK - disk_size + 1);
 }
 
 void show_disks(){
@@ -135,8 +135,8 @@ void moves(char* dirs){
 }
 
 char* move_to(int dest){
-    int prev = ARROW.column;
-    return prev == dest ? "" : prev+1 == dest ? "d" : prev+2 == dest ? "dd" : prev-1 == dest ? "a" : "aa";
+    int src = ARROW.column;
+    return src == dest ? "" : src+1 == dest ? "d" : src+2 == dest ? "dd" : src-1 == dest ? "a" : "aa";
 }
 
 void auto_move(char dir){
